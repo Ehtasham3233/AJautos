@@ -54,6 +54,12 @@ Route::post('/customer-Report', [SummaryController::class, 'reportSummary'])->na
 
 Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 
+use App\Http\Controllers\SearchController;
+
+Route::get('/search', [SearchController::class, 'index'])->name('search.index');
+Route::get('/search/data', [SearchController::class, 'getData'])->name('search.data');
+
+
 
 
 
