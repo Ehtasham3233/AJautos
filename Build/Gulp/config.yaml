@@ -1,0 +1,281 @@
+info:
+  author: false
+  homepage: false
+  banner: "/*!\n * <%= package %> - created by <%= author %>\n * @link <%= homepage %>\n */\n"
+  package: false
+
+global:
+  mergeConfigFromPackages:
+    - DistributionPackages
+    - LocalPackages
+    - Source
+    - _src
+    - .src
+    - src
+  notifications: false
+  browserSync:
+    enable: true
+    proxy: '127.0.0.1:8081'
+    proxyRootFolder: 'https://'
+    open: false
+    xip: false
+  chmod:
+    owner:
+      read: true
+      write: true
+      execute: false
+    group:
+      read: true
+      write: false
+      execute: false
+    others:
+      read: true
+      write: false
+      execute: false
+
+root:
+  base: null
+  src: 'Resources/Private'
+  dest: 'Resources/Public'
+  watch: 'Resources/Private/**'
+  dontWatch: 'Resources/Private/Templates/**'
+  inlinePath: 'Templates/InlineAssets'
+
+packages: {}
+
+tasks:
+  clean:
+    - Assets
+    - Styles
+    - Scripts
+    - '*.css'
+    - '*.js'
+    - '*.map'
+    - '*.js.br'
+    - '*.js.gz'
+    - '*.css.br'
+    - '*.css.gz'
+  css:
+    custom: false
+    src: Assets
+    dest: Styles
+    file: null
+    sourceMaps:
+      options:
+        loadMaps: false
+        largeFile: false
+      identityMap: false
+    extensions:
+      - sass
+      - scss
+    sass:
+      imagePath: Assets
+      precision: 10
+      sourceComments: false
+      outputStyle: expanded
+      includePaths:
+        - './Packages/Sites/'
+        - './Packages/Carbon/'
+        - './Packages/Plugins/'
+        - './node_modules/'
+    postcss:
+      beforeDefault: false
+      afterDefault: false
+      default:
+        postcss-normalize:
+          allowDuplicates: false
+          forceImport: false
+        postcss-preset-env:
+          stage: 2
+          autoprefixer: false
+        postcss-easing-gradients:
+          colorStops: 15
+          alphaDecimals: 5
+          colorMode: lrgb
+        postcss-vmax: true
+        postcss-clip-path-polyfill: true
+        postcss-short:
+          skip: x
+        postcss-center: true
+        postcss-responsive-type: true
+        postcss-clearfix: true
+        postcss-easings: true
+        postcss-focus: true
+        pleeease-filters: true
+        postcss-quantity-queries: true
+        postcss-momentum-scrolling:
+          - scroll
+          - auto
+          - inherit
+        postcss-flexbugs-fixes: true
+        postcss-sort-media-queries: true
+        postcss-round-subpixels: true
+        postcss-pxtorem:
+          rootValue: 16
+          unitPrecision: 5
+          propList:
+            - font
+            - font-size
+            - line-height
+            - letter-spacing
+          selectorBlackList: []
+          replace: true
+          mediaQuery: false
+          minPixelValue: 0
+      specialTreatment:
+        postcss-assets:
+          loadPaths:
+            # Need to be an single value
+            dest: Assets
+            # Can be an array or a single value
+            src:
+              - Sprite
+              - Fusion
+              - Images
+            # Relative path from dest to src directory. This is needed for resolve inline assets
+            srcRelativeToDest: ../../Private/
+          private:
+            cachebuster: false
+            baseUrl: /_Resources/Static/Packages/%KEY%
+          public:
+            cachebuster: false
+        autoprefixer:
+          grid: true
+        cssnano:
+          preset:
+            - default
+            - reduceIdents: false
+              zindex: false
+              discardComments:
+                removeAll: true
+        postcss-reporter: true
+    cssbeautifyOptions:
+      indent: '  '
+      autosemicolon: true
+  scss: true
+  js:
+    custom: false
+    src: Assets
+    dest: Scripts
+    file: null
+    sourceMaps:
+      options:
+        loadMaps: false
+        largeFile: false
+      identityMap: false
+    extensions:
+      - js
+      - jsx
+    compiler: Babel
+    babel:
+      babelHelpers: bundled
+    buble:
+      objectAssign: 'Object.assign'
+    rollup:
+      enable: true
+      # Available formats: (https://rollupjs.org/guide/en#exporting)
+      # -  amd     Asynchronous Module Definition, used with module loaders like RequireJS
+      # -  cjs     CommonJS, suitable for Node and Browserify/Webpack
+      # -  esm     Keep the bundle as an ES module file
+      # -  iife    A self-executing function, suitable for inclusion as a <script> tag. (If you want to create a bundle for your application, you probably want to use this, because it leads to smaller file sizes.)
+      # -  umd     Universal Module Definition, works as amd, cjs and iife all in one
+      # -  system  Native format of the SystemJS loader
+      format: iife
+      useCache: true
+      plugins:
+        builtins: true
+        nodeResolve:
+          mainFields:
+            - module
+            - jsnext
+            - main
+            - browser
+        includePaths:
+          include: {}
+          paths:
+            - COMPOSER_PACKAGES
+            - Packages/Carbon
+            - Packages/Plugins
+          external: []
+          extensions:
+            - .js
+            - .json
+            - .jsx
+        commonjs:
+          exclude: node_modules/process-es6/**
+          include:
+            - node_modules/**
+        amd: false
+        terser:
+          warnings: false
+          mangle: true
+          module: false
+  optimizeImages:
+    custom: false
+    gifsicle: {}
+    jpegtran: {}
+    optipng: {}
+    svgo: {}
+  images:
+    custom: false
+    src: Images
+    dest: Assets
+    watchOnlySrc: true
+    extensions:
+      - jpg
+      - jpeg
+      - png
+      - svg
+      - gif
+      - ico
+  fonts:
+    custom: false
+    src: Fonts
+    dest: Assets
+    watchOnlySrc: true
+    extensions:
+      - woff2
+      - woff
+      - eot
+      - ttf
+      - svg
+  static:
+    custom: false
+    src: Static
+    dest: Assets
+    watchOnlySrc: true
+    extensions:
+      - '*'
+  optimizeSvg: src
+  svgSprite:
+    custom: false
+    src: Sprite
+    dest: Assets
+    watchOnlySrc: true
+    svgo: {}
+    extensions:
+      - svg
+    config:
+      # If set to false no private Sprite will be rendered
+      private:
+        mode:
+          inline: true
+          symbol:
+            inline: true
+            dest: ''
+            sprite: '%srcFolderName%.svg'
+            bust: false
+      # If set to false no public Sprite will be rendered
+      public:
+        svg:
+          xmlDeclaration: true
+          doctypeDeclaration: false
+        mode:
+          symbol:
+            dest: ''
+            sprite: '%srcFolderName%.svg'
+            bust: false
+  showConfig: true
+  pipeline:
+    - build
+    - optimizeImages

@@ -1,0 +1,47 @@
+{
+    "name": "carbon/gulp",
+    "type": "neos-build",
+    "description": "Carbon.Gulp is a delicious blend of tasks and build tools poured into Gulp to form a full-featured modern asset pipeline for Flow Framework and Neos CMS.",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/CarbonPackages/Carbon.Gulp/issues",
+        "wiki": "https://github.com/CarbonPackages/Carbon.Gulp/wiki",
+        "source": "https://github.com/CarbonPackages/Carbon.Gulp"
+    },
+    "homepage": "https://github.com/CarbonPackages/Carbon.Gulp",
+    "keywords": [
+        "build",
+        "pipeline",
+        "neos",
+        "carbon"
+    ],
+    "require": {
+        "neos/composer-plugin": "^1.0.6|^2.0.0"
+    },
+    "authors": [
+        {
+            "name": "Jon Uhlmann",
+            "email": "me@jonnitto.ch",
+            "homepage": "https://jonnitto.ch",
+            "role": "Developer"
+        }
+    ],
+    "archive": {
+        "exclude": [
+            ".gitattributes",
+            ".github",
+            ".gitignore",
+            ".travis.yaml",
+            "CODE_OF_CONDUCT.md",
+            "gulp_test.yaml",
+            "Makefile",
+            "Test",
+            "yarn.lock"
+        ]
+    },
+    "extra": {
+        "author": "Jon Uhlmann",
+        "marketplace-account": "me@jonnitto.ch",
+        "installer-name": "Gulp"
+    }
+}
